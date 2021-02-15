@@ -18,8 +18,7 @@ public class UserDetailsImpl implements UserDetails {
 	private Long id;
     private String firstname;
     private String lastname;
-	private String username;
-
+    private String username;
 	private String email;
 
 	@JsonIgnore
@@ -30,10 +29,10 @@ public class UserDetailsImpl implements UserDetails {
 	public UserDetailsImpl(Long id, String firstname, String lastname, String username, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
-		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.authorities = authorities;
 	}
