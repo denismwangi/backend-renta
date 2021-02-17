@@ -10,3 +10,9 @@ authentication EndPoints
 - GET  http://127.0.0.1:8080/api/test/admin
 - GET  http://127.0.0.1:8080/api/test/mod
 
+user operations
+- GET  http://127.0.0.1:8080/api/v1/users
+- GET  http://127.0.0.1:8080/api/v1/users/{1d}
+- PUT  http://127.0.0.1:8080/api/v1/users{id}
+- DELETE http://127.0.0.1:8080/api/v1/users{1d}
+
