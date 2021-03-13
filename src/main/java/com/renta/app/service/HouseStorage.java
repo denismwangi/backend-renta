@@ -1,6 +1,7 @@
 package com.renta.app.service;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,24 @@ public class HouseStorage {
 	@Autowired
 	private static HouseRepository houseRepository;
 	
-	public static Houses store(MultipartFile file)throws IOException{
+	
+	
+	public static Houses store(Houses houses, MultipartFile file)throws IOException{
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		
-		Houses House = new Houses(fileName, file.getContentType(), fileName, file.getBytes(), fileName, fileName, fileName, fileName, fileName);
 		
+		Houses Houses = new Houses(fileName,
+				file.getContentType(), 
+				houses.getName(),
+				file.getBytes(),
+				houses.getDescription(),
+				houses.getCategory(), 
+				houses.getLocation(),
+				houses.getPrice(),
+				houses.getRoomSize());
 		
-		return houseRepository.save(House);
+		//Path targetLocation = ths.fileStorageLocation.resolve(fileName);
+		return houseRepository.save(Houses);
 		
 	}
 	

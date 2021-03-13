@@ -19,7 +19,7 @@ public class Houses {
 	  private String id;
 
 	
-	private String name;
+	  private String name;
 	  private String type;
 	  @Lob
 	  private byte[] data;
@@ -63,7 +63,9 @@ public class Houses {
 			this.category = category;
 			this.description = description;
 		}
-	  public String getId() {
+	  
+
+	public String getId() {
 			return id;
 		}
 
