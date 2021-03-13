@@ -36,7 +36,7 @@ import com.renta.app.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -75,6 +75,7 @@ public class AuthController {
 												 userDetails.getFirstname(),
 												 userDetails.getLastname(),
 												 userDetails.getEmail(), 
+												 userDetails.getContacts(),
 												 roles));
 	}
 
@@ -100,32 +101,33 @@ public class AuthController {
 				             signUpRequest.getLastname(),
 				             signUpRequest.getUsername(), 
 							 signUpRequest.getEmail(),
+							 signUpRequest.getContacts(),
 							 encoder.encode(signUpRequest.getPassword()));
 
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
 
 		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+			Role userRole = roleRepository.findByName(ERole.USER)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);
 		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
 				case "admin":
-					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+					Role adminRole = roleRepository.findByName(ERole.ADMIN)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(adminRole);
 
 					break;
 				case "mod":
-					Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+					Role modRole = roleRepository.findByName(ERole.LANDLORD)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(modRole);
 
 					break;
 				default:
-					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+					Role userRole = roleRepository.findByName(ERole.USER)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(userRole);
 				}

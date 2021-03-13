@@ -38,18 +38,18 @@ public class UserController {
 	
 	//create user
 	
-	//@PostMapping("/users")
-	//public User createUser(@RequestBody User user) {
+	@PostMapping("/users/create")
+	public User createUser(@RequestBody User user) {
 		
-	//	return userRepository.save(user);
+		return userRepository.save(user);
 		
-	//}
+	}
 	
 	//get user by id
 	@GetMapping("/users/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable Long id){
 		User user = userRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id :" + id));
+				.orElseThrow(() -> new ResourceNotFoundException("user not exist with id :" + id));
 		return ResponseEntity.ok(user);
 				
 	}
@@ -91,12 +91,6 @@ public class UserController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+		
 
 }

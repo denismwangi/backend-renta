@@ -61,17 +61,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
+			.authorizeRequests().antMatchers("/api/v1/auth/**").permitAll()
 			.antMatchers("/api/test/**").permitAll()
-			//.antMatchers("api/v1/**").permitAll()
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
+	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 	    web.ignoring().antMatchers("/api/v1/users/**");
-	    //web.ignoring().antMatchers("/api/v1/user{id}");
+	    web.ignoring().antMatchers("/api/v1/house/**");
 	    //web.ignoring().antMatchers("/api/v1/user");
 	}
 	

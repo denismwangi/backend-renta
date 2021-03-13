@@ -28,8 +28,18 @@ public class SignupRequest {
     @Size(min = 6, max = 40)
     private String password;
     
+    @NotBlank
+    @Size(min = 6, max = 40)
+    private String contacts;
     
-    public String getFirstname() {
+    
+    
+
+	public void setContacts(String contacts) {
+		this.contacts = contacts;
+	}
+
+	public String getFirstname() {
         return firstname;
     }
  
@@ -76,4 +86,9 @@ public class SignupRequest {
     public void setRole(Set<String> role) {
       this.role = role;
     }
+
+	public String getContacts() {
+		// TODO Auto-generated method stub
+		return contacts;
+	}
 }

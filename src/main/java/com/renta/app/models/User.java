@@ -17,6 +17,7 @@ import javax.validation.constraints.Size;
 			@UniqueConstraint(columnNames = "email") 
 		})
 public class User {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -37,11 +38,16 @@ public class User {
 	@Size(max = 50)
 	@Email
 	private String email;
-
+    
 	@NotBlank
 	@Size(max = 120)
 	private String password;
 	
+	@NotBlank
+	@Size(max = 120)
+	private String contacts;
+	
+
 	@NotNull
 	private Date dateCreated;
 
@@ -54,12 +60,13 @@ public class User {
 	public User() {
 	}
 
-	public User(String firstname, String lastname, String username, String email, String password) {
+	public User(String firstname, String lastname, String username, String email, String password ,String contacts) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.contacts = contacts;
 		this.dateCreated = new Date();
 	}
 
@@ -124,5 +131,12 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	public String getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(String contacts) {
+		this.contacts = contacts;
 	}
 }
