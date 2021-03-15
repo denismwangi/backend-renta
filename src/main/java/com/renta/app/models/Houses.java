@@ -1,7 +1,5 @@
 package com.renta.app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -13,16 +11,17 @@ import javax.persistence.*;
 @Table(name = "houses")
 public class Houses {
 	
-	  @Id
+	 @Id
 	  @GeneratedValue(generator = "uuid")
 	  @GenericGenerator(name = "uuid", strategy = "uuid2")
 	  private String id;
 
+
 	
-	  private String name;
-	  private String type;
-	  @Lob
-	  private byte[] data;
+//	  private String name;
+//	  private String type;
+//	  @Lob
+//	  private byte[] data;
 	  
 	  @NotNull
 	  @Size(max = 20)
@@ -43,10 +42,19 @@ public class Houses {
 	  @Size(max = 200)
 	  private String description;
 	  
-	  public  Houses() {
+	  @NotNull
+	  private String hPhoto;
+	  
+	  
+
+	public  Houses() {
 	  }
 	  
-	  public Houses(String id, String name, String type, byte[] data,
+	  public Houses(String id, 
+//			  String name, 
+//			  String type,
+//			  byte[] data,
+			  String hPhoto,
 				@NotNull @javax.validation.constraints.Size(max = 20) String location,
 				@NotNull @javax.validation.constraints.Size(max = 20) String roomSize,
 				@NotNull @javax.validation.constraints.Size(max = 20) String price,
@@ -54,9 +62,10 @@ public class Houses {
 				@NotNull @javax.validation.constraints.Size(max = 200) String description) {
 			//super();
 			this.id = id;
-			this.name = name;
-			this.type = type;
-			this.data = data;
+//			this.name = name;
+//			this.type = type;
+//			this.data = data;
+			this.hPhoto = hPhoto;
 			this.location = location;
 			this.roomSize = roomSize;
 			this.price = price;
@@ -72,30 +81,37 @@ public class Houses {
 		public void setId(String id) {
 			this.id = id;
 		}
-
-		public String getName() {
-			return name;
+		public String gethPhoto() {
+			return hPhoto;
 		}
 
-		public void setName(String name) {
-			this.name = name;
+		public void sethPhoto(String hPhoto) {
+			this.hPhoto = hPhoto;
 		}
 
-		public String getType() {
-			return type;
-		}
-
-		public void setType(String type) {
-			this.type = type;
-		}
-
-		public byte[] getData() {
-			return data;
-		}
-
-		public void setData(byte[] data) {
-			this.data = data;
-		}
+//		public String getName() {
+//			return name;
+//		}
+//
+//		public void setName(String name) {
+//			this.name = name;
+//		}
+//
+//		public String getType() {
+//			return type;
+//		}
+//
+//		public void setType(String type) {
+//			this.type = type;
+//		}
+//
+//		public byte[] getData() {
+//			return data;
+//		}
+//
+//		public void setData(byte[] data) {
+//			this.data = data;
+//		}
 
 		public String getLocation() {
 			return location;
