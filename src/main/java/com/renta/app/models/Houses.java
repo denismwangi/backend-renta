@@ -11,10 +11,9 @@ import javax.persistence.*;
 @Table(name = "houses")
 public class Houses {
 	
-	 @Id
-	  @GeneratedValue(generator = "uuid")
-	  @GenericGenerator(name = "uuid", strategy = "uuid2")
-	  private String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 
 	
@@ -50,7 +49,7 @@ public class Houses {
 	public  Houses() {
 	  }
 	  
-	  public Houses(String id, 
+	  public Houses(Long id, 
 //			  String name, 
 //			  String type,
 //			  byte[] data,
@@ -74,11 +73,11 @@ public class Houses {
 		}
 	  
 
-	public String getId() {
+	public Long getId() {
 			return id;
 		}
 
-		public void setId(String id) {
+		public void setId(Long id) {
 			this.id = id;
 		}
 		public String gethPhoto() {
@@ -152,6 +151,8 @@ public class Houses {
 		public void setDescription(String description) {
 			this.description = description;
 		}
+
+
 
 	  
 	  
