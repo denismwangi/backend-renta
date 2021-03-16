@@ -17,3 +17,10 @@ user operations
 - PUT  http://127.0.0.1:8080/api/v1/users/{id}
 - DELETE http://127.0.0.1:8080/api/v1/users{1d}
 
+houses endpoints
+- POST  http://127.0.0.1:8080/api/v1/house/create
+- GET  http://127.0.0.1:8080/api/v1/house/allhouses
+- GET  http://127.0.0.1:8080/api/v1/house/house/{id}
+- PUT  http://127.0.0.1:8080/api/v1/house/house/{id}
+- DELETE http://127.0.0.1:8080/api/v1/house/house{id}
+
