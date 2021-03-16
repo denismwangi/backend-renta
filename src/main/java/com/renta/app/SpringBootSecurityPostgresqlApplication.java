@@ -12,7 +12,7 @@ public class SpringBootSecurityPostgresqlApplication {
 
 	public static void main(String[] args) {
 		
-		//new File(HouseController.uploadDirectory).mkdir(); 
+		new File(HouseController.uploadDirectory).mkdir(); 
 		SpringApplication.run(SpringBootSecurityPostgresqlApplication.class, args);
 	}
 

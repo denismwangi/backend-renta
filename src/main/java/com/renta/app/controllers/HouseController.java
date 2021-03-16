@@ -22,52 +22,47 @@ import com.renta.app.repository.HouseRepository;
 public class HouseController {
 	
 	
-	public static String uploadDirectory = System.getProperty("house.dir")+ "/src/main/resources/images";
+	public static String uploadDirectory = System.getProperty("user.dir") + "/uploads/images";
 		@Autowired
         HouseRepository houseRepository;
 		
+		
+		/**
+		 * upload multiple images
+		 * @param houses
+		 * @param files
+		 * @return
+		 */
 		@RequestMapping("create")
 		@ResponseBody
-		public String  saveHouses(Houses houses, @RequestParam("image") MultipartFile file) {
+		public String  saveHouses(Houses houses, @RequestParam("image") MultipartFile[] files) {
 			 StringBuilder fileNames = new StringBuilder();
-			 String filename = houses.getId() + file.getOriginalFilename().substring(file.getOriginalFilename().length()-4);
-			 Path fileNameAndPath = Paths.get(uploadDirectory, filename);
 			 
-			 try {
-				 Files.write(fileNameAndPath, file.getBytes());
-			 }catch(IOException e){
-				 e.printStackTrace();
+			 for(MultipartFile file : files) {
+				 
+				 String filename = houses.getId() + file.getOriginalFilename().substring(file.getOriginalFilename().length()-4);
+				 Path fileNameAndPath = Paths.get(uploadDirectory, filename);
+				 
+				 try {
+					 Files.write(fileNameAndPath, file.getBytes());
+				 }catch(IOException e){
+					 e.printStackTrace();
+					 
+				 }
+				 
+				 houses.sethPhoto(filename);
+				 houseRepository.save(houses);
 				 
 			 }
-			 houses.sethPhoto(filename);
-			 houseRepository.save(houses);
+			 
+			
 			 
 			 return "saved successsfuly";
 			 
 			
 		}
 		
-//
-		
-//		@PostMapping("/create")
-//		public Houses createHouse(Houses houses, 
-//				@RequestParam("image") MultipartFile multipartFile) throws IOException{
-//			
-//			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-//			
-//	        houses.setPhotos(fileName);
-//	         
-//	        User savedUser = repo.save(user);
-//	 
-//	        String uploadDir = "user-photos/" + savedUser.getId();
-//	 
-//	        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-//			
-//			//return HouseRepository.save(houses);
-//			
-//		}
-////		
-//	
+
 //	@PostMapping("/create")
 //	ResponseEntity<MessageResponse> Save(Houses houses, @RequestParam("file") MultipartFile file) {
 //		
