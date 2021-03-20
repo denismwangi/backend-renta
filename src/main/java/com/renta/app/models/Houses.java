@@ -17,17 +17,20 @@ public class Houses {
 
 
 	
-//	  private String name;
-//	  private String type;
-//	  @Lob
-//	  private byte[] data;
+	  
+
+	private String imgName;
+	//private String imgUrl;
+	private String type;
+	  @Lob
+	  private byte[] data;
 	  
 	  @NotNull
 	  @Size(max = 20)
 	  private String location;
 	  
-	  @NotNull
-	  @Size(max = 20)
+//	  @NotNull
+//	  @Size(max = 20)
 	  private String roomSize;
 	  
 	  @NotNull
@@ -41,36 +44,27 @@ public class Houses {
 	  @Size(max = 200)
 	  private String description;
 	  
-	  @NotNull
-	  private String hPhoto;
+//	  @NotNull
+//	  private String hPhoto;
 	  
 	  
 
 	public  Houses() {
 	  }
-	  
-	  public Houses(Long id, 
-//			  String name, 
-//			  String type,
-//			  byte[] data,
-			  String hPhoto,
-				@NotNull @javax.validation.constraints.Size(max = 20) String location,
-				@NotNull @javax.validation.constraints.Size(max = 20) String roomSize,
-				@NotNull @javax.validation.constraints.Size(max = 20) String price,
-				@NotNull @javax.validation.constraints.Size(max = 30) String category,
-				@NotNull @javax.validation.constraints.Size(max = 200) String description) {
-			//super();
-			this.id = id;
-//			this.name = name;
-//			this.type = type;
-//			this.data = data;
-			this.hPhoto = hPhoto;
-			this.location = location;
-			this.roomSize = roomSize;
-			this.price = price;
-			this.category = category;
-			this.description = description;
-		}
+	public Houses( String imgName, String type, byte[] data, @NotNull @Size(max = 20) String location,
+			String roomSize, @NotNull @Size(max = 20) String price, @NotNull @Size(max = 30) String category,
+			@NotNull @Size(max = 200) String description) {
+		//super();
+		this.id = id;
+		this.imgName = imgName;
+		this.type = type;
+		this.data = data;
+		this.location = location;
+		this.roomSize = roomSize;
+		this.price = price;
+		this.category = category;
+		this.description = description;
+	}
 	  
 
 	public Long getId() {
@@ -80,37 +74,45 @@ public class Houses {
 		public void setId(Long id) {
 			this.id = id;
 		}
-		public String gethPhoto() {
-			return hPhoto;
-		}
+//		public String gethPhoto() {
+//			return hPhoto;
+//		}
+//
+//		public void sethPhoto(String hPhoto) {
+//			this.hPhoto = hPhoto;
+//		}
 
-		public void sethPhoto(String hPhoto) {
-			this.hPhoto = hPhoto;
-		}
 
-//		public String getName() {
-//			return name;
-//		}
+		 public String getImgName() {
+				return imgName;
+			}
+
+			public void setImgName(String imgName) {
+				this.imgName = imgName;
+			}
+
+//			public String getImgUrl() {
+//				return imgUrl;
+//			}
 //
-//		public void setName(String name) {
-//			this.name = name;
-//		}
-//
-//		public String getType() {
-//			return type;
-//		}
-//
-//		public void setType(String type) {
-//			this.type = type;
-//		}
-//
-//		public byte[] getData() {
-//			return data;
-//		}
-//
-//		public void setData(byte[] data) {
-//			this.data = data;
-//		}
+//			public void setImgUrl(String imgUrl) {
+//				this.imgUrl = imgUrl;
+//			}
+			public String getType() {
+				return type;
+			}
+
+			public void setType(String type) {
+				this.type = type;
+			}
+
+			public byte[] getData() {
+				return data;
+			}
+
+			public void setData(byte[] data) {
+				this.data = data;
+			}
 
 		public String getLocation() {
 			return location;

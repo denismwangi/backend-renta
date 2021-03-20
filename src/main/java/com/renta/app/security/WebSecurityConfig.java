@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 	    //web.ignoring().antMatchers("/api/v1/users/**");
-	    web.ignoring().antMatchers("/api/v1/house/**");
+	    web.ignoring().antMatchers("/api/v1/houses/**");
 	    //web.ignoring().antMatchers("/api/v1/user");
 	}
 	

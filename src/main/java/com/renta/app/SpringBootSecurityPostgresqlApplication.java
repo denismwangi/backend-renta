@@ -1,19 +1,32 @@
 package com.renta.app;
 
-import java.io.File;
 
+
+import javax.annotation.Resource;
+
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.renta.app.controllers.HouseController;
+
+import com.renta.app.service.HouseFilesStorageService;
 
 @SpringBootApplication
-public class SpringBootSecurityPostgresqlApplication {
+public class SpringBootSecurityPostgresqlApplication  {
 
+	
+	@Resource
+	HouseFilesStorageService houseFilesStorageService;
+	
 	public static void main(String[] args) {
 		
-		new File(HouseController.uploadDirectory).mkdir(); 
 		SpringApplication.run(SpringBootSecurityPostgresqlApplication.class, args);
 	}
+
+	
+
+	
+
+	
 
 }
