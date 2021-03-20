@@ -1,6 +1,7 @@
 package com.renta.app.service;
 
 import java.io.IOException;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,12 +37,12 @@ public class FileStorageService {
 
 	
 
-//	  public FileDB getFile(String id) {
-//	    return fileDBRepository.findById(id).get();
-//	  }
-//	  
-//	  public Stream<FileDB> getAllFiles() {
-//	    return fileDBRepository.findAll().stream();
-//	  }
+	  public Houses getFile(Long id) {
+	    return houseRepository.findById(id).get();
+	  }
+	  
+	  public Stream<Houses> getAllFiles() {
+	    return houseRepository.findAll().stream();
+	  }
 
 }

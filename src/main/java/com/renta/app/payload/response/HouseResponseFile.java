@@ -2,8 +2,10 @@ package com.renta.app.payload.response;
 
 public class HouseResponseFile {
 
-	private String name;
-	private String url;
+	private String imgName;
+	private String imgurl;
+	
+
 	private String type;
 	private long size;
 	private String location;
@@ -12,11 +14,11 @@ public class HouseResponseFile {
 	private String category;
 	private String description;
 	
-	public HouseResponseFile(String name, String url, String type, long size, String location, String roomSize,
+	public HouseResponseFile(String imgName, String imgurl, String type, long size, String location, String roomSize,
 			String price, String category, String description) {
 		//super();
-		this.name = name;
-		this.url = url;
+		this.imgName = imgName;
+		this.imgurl = imgurl;
 		this.type = type;
 		this.size = size;
 		this.location = location;
@@ -26,25 +28,31 @@ public class HouseResponseFile {
 		this.description = description;
 	}
 	
-	public String getName() {
-		return name;
-	}
+	
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
+	
 	public String getType() {
 		return type;
 	}
+	public String getImgName() {
+		return imgName;
+	}
+	public String getImgurl() {
+		return imgurl;
+	}
+
+
+
+
+	public void setImgurl(String imgurl) {
+		this.imgurl = imgurl;
+	}
+
+
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+
 
 	public void setType(String type) {
 		this.type = type;

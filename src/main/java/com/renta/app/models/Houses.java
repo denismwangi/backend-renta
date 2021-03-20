@@ -11,13 +11,11 @@ import javax.persistence.*;
 @Table(name = "houses")
 public class Houses {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	 @Id
+	  @GeneratedValue(generator = "uuid")
+	  @GenericGenerator(name = "uuid", strategy = "uuid2")
+	  private String id;
 
-
-	
-	  
 
 	private String imgName;
 	//private String imgUrl;
@@ -66,14 +64,13 @@ public class Houses {
 		this.description = description;
 	}
 	  
-
-	public Long getId() {
-			return id;
-		}
-
-		public void setId(Long id) {
-			this.id = id;
-		}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 //		public String gethPhoto() {
 //			return hPhoto;
 //		}

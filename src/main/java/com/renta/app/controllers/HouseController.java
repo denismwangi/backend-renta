@@ -27,10 +27,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.renta.app.exception.ResourceNotFoundException;
 import com.renta.app.models.Houses;
 import com.renta.app.models.User;
+import com.renta.app.payload.response.HouseResponseFile;
 import com.renta.app.payload.response.MessageResponse;
 import com.renta.app.repository.HouseRepository;
 import com.renta.app.service.FileStorageService;
@@ -50,7 +52,7 @@ public class HouseController {
         HouseRepository houseRepository;
 		
 		@PostMapping("/houses/create")
-		  public ResponseEntity<MessageResponse> uploadFile(Houses houses, @RequestParam("file") MultipartFile file) throws IOException {
+		  public ResponseEntity<MessageResponse> createHose(Houses houses, @RequestParam("file") MultipartFile file) throws IOException {
 		    String message = "";
 		    
 		    fileStorage.store(houses, file);
@@ -70,73 +72,40 @@ public class HouseController {
 		  }
 		
 	
-//		@PostMapping("houses/create")
-//		public String Saveinfo( Houses houses, @RequestParam("file") MultipartFile file) throws IOException {
-//		  String message = "saved successfully";
-//			houseFilesStorageService.save(file);
-//		    houseRepository.save(houses);
-//		    return message;
-//		}
-		
-		/**
-		 * upload multiple images
-		 * @param houses
-		 * @param files
-		 * @return
-		 */
-//		@RequestMapping("/houses/create")
-//		@ResponseBody
-//	     ResponseEntity<MessageResponse>  saveHouses( Houses houses, @RequestParam("file") MultipartFile file) {
-//			// StringBuilder fileNames = new StringBuilder();
-//			 String message = "";
-//			 try {
-//				// houseFilesStorageService.save(file);
-//				 houseRepository.save(houses);
-//				 
-//				 message = "saved  successfully: " ;
-//				 return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
-//			 }catch(Exception e) {
-//				 
-//				 message = "failed!";
-//			      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
-//			 }
-//			
-//			 
 //		
-//		}
-		
-//		 @GetMapping("houses/files")
-//		  public ResponseEntity<List<Houses>> getListFiles() {
-//			 
-//		    List<Houses> fileInfos = houseFilesStorageService.loadAll().map(path -> {
-//		    	
-//		      String filename = path.getFileName().toString();
-//		      String url = MvcUriComponentsBuilder
-//		          .fromMethodName(HouseController.class, "getFile", path.getFileName().toString()).build().toString();
-//
-//		      return new Houses(null, filename, url, url, url, url, url, url);
-//		    }).collect(Collectors.toList());
-//
-//		    return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
-//		  }
-//		 @GetMapping("/files/{filename:.+}")
-//		  @ResponseBody
-//		  public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-//		    Resource file = houseFilesStorageService.load(filename);
-//		    return ResponseEntity.ok()
-//		        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-//		  }
 		/**
 		 * 
 		 * @return all the houses
 		 */
-		
 		@GetMapping("/houses")
-		public List<Houses> allHouses() {
-			
-			return  houseRepository.findAll();
-		}
+		  public ResponseEntity<List<HouseResponseFile>> getListHouses() {
+		    List<HouseResponseFile> files = fileStorage.getAllFiles().map(dbFile -> {
+		      String fileDownloadUri = ServletUriComponentsBuilder
+		          .fromCurrentContextPath()
+		          .path("/files/images/")
+		          .path(dbFile.getId())
+		          .toUriString();
+		      return new HouseResponseFile(
+		          dbFile.getImgName(),
+		          fileDownloadUri,
+		          dbFile.getType(),
+		          dbFile.getData().length,
+		          dbFile.getDescription(),
+		          dbFile.getLocation(),
+		          dbFile.getPrice(),
+		          dbFile.getRoomSize(),
+		          dbFile.getCategory());
+		    }).collect(Collectors.toList());
+
+		    return ResponseEntity.status(HttpStatus.OK).body(files);
+		  }
 		
+//		@GetMapping("/houses")
+//		public List<Houses> allHouses() {
+//			
+//			return  houseRepository.findAll();
+//		}
+//		
 		/**
 		 * 
 		 * @param id
