@@ -70,12 +70,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-	    web.ignoring().antMatchers("/api/v1/roles/**");
-//	    web.ignoring().antMatchers(
-//	    		"/api/v1/houses/**",
-//	    		"/api/v1/users/**",
-//	    		"/files/images/**"
-//	    		);
+	    web.ignoring().antMatchers(
+	    		"/api/v1/houses/**",
+	    		"/api/v1/users/**",
+	    		"/files/images/**",
+	    		"/api/v1/roles/**"
+	    		);
 	  
 	}
 	
