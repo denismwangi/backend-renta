@@ -122,9 +122,9 @@ public class AuthController {
 
 					break;
 				case "mod":
-					Role modRole = roleRepository.findByName(ERole.LANDLORD)
+					Role landlordRole = roleRepository.findByName(ERole.LANDLORD)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(modRole);
+					roles.add(landlordRole);
 
 					break;
 				default:
