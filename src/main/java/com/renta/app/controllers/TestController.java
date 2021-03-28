@@ -21,7 +21,7 @@ public class TestController {
 		return "User Content.";
 	}
 
-	@GetMapping("/mod")
+	@GetMapping("/land")
 	@PreAuthorize("hasRole('LANDLORD')")
 	public String landlordAccess() {
 		return "Landlord Board.";
