@@ -34,7 +34,7 @@ import com.renta.app.repository.UserRepository;
 import com.renta.app.security.jwt.JwtUtils;
 import com.renta.app.security.services.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
