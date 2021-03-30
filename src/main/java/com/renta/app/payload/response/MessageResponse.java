@@ -8,9 +8,9 @@ public class MessageResponse {
 
 	
 
-	public MessageResponse(String message, String success) {
+	public MessageResponse(String message, String string) {
 	    this.message = message;
-	    this.success = success;
+	    this.success = string;
 	  }
 
 	
