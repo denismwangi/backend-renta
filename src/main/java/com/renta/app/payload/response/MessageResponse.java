@@ -8,12 +8,12 @@ public class MessageResponse {
 
 	
 
-	public MessageResponse(String message, String string) {
-	    this.message = message;
-	    this.success = string;
-	  }
-
 	
+
+	public MessageResponse(String message, String success) {
+		this.message = message;
+		this.success = success;
+	}
 
 	public String getMessage() {
 		return message;

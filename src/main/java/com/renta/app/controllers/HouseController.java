@@ -57,7 +57,7 @@ public class HouseController {
 		    
 		    fileStorage.store(houses, file);
 		    message = "Uploaded the file successfully: " + file.getOriginalFilename();
-		      return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
+		      return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message, "1"));
 		    
 //		    try {
 //		    	//houseRepository.save(houses);
