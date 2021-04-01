@@ -45,7 +45,7 @@ public class HouseController {
 	
 	 @Autowired
 	 private FileStorageService fileStorage;
-	 // HouseFilesStorageService houseFilesStorageService;
+	  HouseFilesStorageService houseFilesStorageService;
 	
 	//public static String uploadDirectory = System.getProperty("user.dir") + "/uploads/images";
 		@Autowired
@@ -113,13 +113,21 @@ public class HouseController {
 		 */
 		
 		@GetMapping("/houses/{id}")
-		public ResponseEntity<Houses> getUser(@PathVariable Long id){
+		public ResponseEntity<Houses> getHouse(@PathVariable String id){
 			 
 			Houses houses = houseRepository.findById(id).
 					orElseThrow(() -> new ResourceNotFoundException("house not exist with id :" + id));
 			return ResponseEntity.ok(houses);
 			
 		}
+		
+		@GetMapping("/files/images/{filename:.+}")
+		  @ResponseBody
+		  public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+		    Resource file = houseFilesStorageService.load(filename);
+		    return ResponseEntity.ok()
+		        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+		  }
 		
 		/**
 		 * 
@@ -129,7 +137,7 @@ public class HouseController {
 		 */
 		
 		@PutMapping("/houses/{id}")
-		public ResponseEntity<Houses> updateHouse(@PathVariable Long id , @RequestBody Houses houseDetails){
+		public ResponseEntity<Houses> updateHouse(@PathVariable String id , @RequestBody Houses houseDetails){
 			Houses houses = houseRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("houses does ot exist with id:" + id));
 			
@@ -153,7 +161,7 @@ public class HouseController {
 		 */
 		
 		@DeleteMapping("/houses/{id}")
-		public ResponseEntity<Map<String , Boolean>> deleteHouse(@PathVariable Long id){
+		public ResponseEntity<Map<String , Boolean>> deleteHouse(@PathVariable String id){
 			Houses houses = houseRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("house does not exist with id: " +1d));
 			houseRepository.delete(houses);

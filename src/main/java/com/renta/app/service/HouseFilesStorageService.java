@@ -7,6 +7,8 @@ import java.util.stream.Stream;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.renta.app.models.Houses;
+
 
 public interface HouseFilesStorageService {
 	
@@ -19,6 +21,9 @@ public interface HouseFilesStorageService {
 	  public void deleteAll();
 
 	  public Stream<Path> loadAll();
+
+	
+	
 	
 
 }

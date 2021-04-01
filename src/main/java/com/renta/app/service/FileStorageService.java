@@ -21,8 +21,10 @@ public class FileStorageService {
 	    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 	    
 	    Houses Houses = new Houses(
+	    		
 	    		fileName,
 	    		file.getContentType(), 
+	    		houses.getId(),
 	    		file.getBytes(),
 	    		houses.getCategory(),
 	    		houses.getDescription(),
@@ -37,7 +39,7 @@ public class FileStorageService {
 
 	
 
-	  public Houses getFile(Long id) {
+	  public Houses getHouses(String id) {
 	    return houseRepository.findById(id).get();
 	  }
 	  

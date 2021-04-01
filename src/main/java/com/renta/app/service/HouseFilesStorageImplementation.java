@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.renta.app.models.Houses;
+
 @Service
 public class HouseFilesStorageImplementation implements HouseFilesStorageService{
 	
@@ -69,6 +71,6 @@ public class HouseFilesStorageImplementation implements HouseFilesStorageService
 		      throw new RuntimeException("Could not load the files!");
 		    }
 		  }
-	
+
 
 }

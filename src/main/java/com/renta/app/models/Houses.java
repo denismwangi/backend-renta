@@ -14,6 +14,7 @@ public class Houses {
 	 @Id
 	  @GeneratedValue(generator = "uuid")
 	  @GenericGenerator(name = "uuid", strategy = "uuid2")
+	 @Column(length = 36, nullable = false, updatable = false)
 	  private String id;
 
 
@@ -49,7 +50,7 @@ public class Houses {
 
 	public  Houses() {
 	  }
-	public Houses( String imgName, String type, byte[] data, @NotNull @Size(max = 20) String location,
+	public Houses( String id ,String imgName, String type, byte[] data, @NotNull @Size(max = 20) String location,
 			String roomSize, @NotNull @Size(max = 20) String price, @NotNull @Size(max = 30) String category,
 			@NotNull @Size(max = 200) String description) {
 		//super();

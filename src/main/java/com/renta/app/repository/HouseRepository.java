@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.renta.app.models.Houses;
 
-public interface HouseRepository extends JpaRepository<Houses, Long> {
+public interface HouseRepository extends JpaRepository<Houses, String> {
 
 
 
