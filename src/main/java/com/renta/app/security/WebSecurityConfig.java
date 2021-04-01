@@ -106,7 +106,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	    		"/api/v1/houses/**",
 	    		"/api/v1/users/**",
 	    		"/files/images/**",
-	    		"/api/v1/roles/**"
+	    		"/api/v1/roles/**",
+	    		"/api/v1/files/**",
+	    		"/files/**"
 	    		);
 	  
 	}

@@ -35,7 +35,6 @@ import com.renta.app.models.User;
 import com.renta.app.payload.response.HouseResponseFile;
 import com.renta.app.payload.response.MessageResponse;
 import com.renta.app.repository.HouseRepository;
-import com.renta.app.service.FileStorageService;
 import com.renta.app.service.HouseFilesStorageService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -43,20 +42,15 @@ import com.renta.app.service.HouseFilesStorageService;
 @RequestMapping("/api/v1")
 public class HouseController {
 	
-	 @Autowired
-	 private FileStorageService fileStorage;
-	  HouseFilesStorageService houseFilesStorageService;
-	
-	//public static String uploadDirectory = System.getProperty("user.dir") + "/uploads/images";
 		@Autowired
         HouseRepository houseRepository;
 		
 		@PostMapping("/houses/create")
-		  public ResponseEntity<MessageResponse> createHose(Houses houses, @RequestParam("file") MultipartFile file) throws IOException {
+		  public ResponseEntity<MessageResponse> createHose(Houses houses) throws IOException {
 		    String message = "";
 		    
-		    fileStorage.store(houses, file);
-		    message = "Uploaded the file successfully: " + file.getOriginalFilename();
+		      houseRepository.save(houses);
+		    message = "Uploaded the file successfully: ";
 		      return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message, "1"));
 		    
 //		    try {
@@ -77,35 +71,20 @@ public class HouseController {
 		 * 
 		 * @return all the houses
 		 */
-		@GetMapping("/houses")
-		  public ResponseEntity<List<HouseResponseFile>> getListHouses() {
-		    List<HouseResponseFile> files = fileStorage.getAllFiles().map(dbFile -> {
-		      String fileDownloadUri = ServletUriComponentsBuilder
-		          .fromCurrentContextPath()
-		          .path("/files/images/")
-		          .path(dbFile.getId())
-		          .toUriString();
-		      return new HouseResponseFile(
-		          dbFile.getImgName(),
-		          fileDownloadUri,
-		          dbFile.getType(),
-		          dbFile.getData().length,
-		          dbFile.getDescription(),
-		          dbFile.getLocation(),
-		          dbFile.getPrice(),
-		          dbFile.getRoomSize(),
-		          dbFile.getCategory());
-		    }).collect(Collectors.toList());
-
-		    return ResponseEntity.status(HttpStatus.OK).body(files);
-		  }
-		
 //		@GetMapping("/houses")
-//		public List<Houses> allHouses() {
-//			
-//			return  houseRepository.findAll();
-//		}
-//		
+//		  public ResponseEntity<List<HouseResponseFile>> getListHouses() {
+//		  
+//		          
+//
+//		    return ResponseEntity.status(HttpStatus.OK).body(null);
+//		  }
+		
+		@GetMapping("/houses")
+		public List<Houses> allHouses() {
+			
+			return  houseRepository.findAll();
+		}
+		
 		/**
 		 * 
 		 * @param id
@@ -121,13 +100,6 @@ public class HouseController {
 			
 		}
 		
-		@GetMapping("/files/images/{filename:.+}")
-		  @ResponseBody
-		  public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-		    Resource file = houseFilesStorageService.load(filename);
-		    return ResponseEntity.ok()
-		        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-		  }
 		
 		/**
 		 * 

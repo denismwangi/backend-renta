@@ -5,6 +5,9 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,16 +20,11 @@ public class Houses {
 	 @Column(length = 36, nullable = false, updatable = false)
 	  private String id;
 
-
-	private String imgName;
-	//private String imgUrl;
-	private String type;
-	  @Lob
-	  private byte[] data;
 	  
 	  @NotNull
-	  @Size(max = 20)
-	  private String location;
+	  @Size(max = 30)
+	  private String category;
+	  
 	  
 //	  @NotNull
 //	  @Size(max = 20)
@@ -35,9 +33,13 @@ public class Houses {
 	  @NotNull
 	  @Size(max = 20)
 	  private String price;
+	  
+	  
 	  @NotNull
-	  @Size(max = 30)
-	  private String category;
+	  @Size(max = 20)
+	  private String location;
+
+	 
 	  
 	  @NotNull
 	  @Size(max = 200)
@@ -47,17 +49,20 @@ public class Houses {
 //	  private String hPhoto;
 	  
 	  
+	  @ManyToMany(fetch = FetchType.LAZY)
+		@JoinTable(	name = "house_images", 
+					joinColumns = @JoinColumn(name = "house_id"), 
+					inverseJoinColumns = @JoinColumn(name = "file_id"))
+	  
+	  private Set<houseImage> houseimages = new HashSet<>();
 
 	public  Houses() {
 	  }
-	public Houses( String id ,String imgName, String type, byte[] data, @NotNull @Size(max = 20) String location,
+	public Houses( String id , @NotNull @Size(max = 20) String location,
 			String roomSize, @NotNull @Size(max = 20) String price, @NotNull @Size(max = 30) String category,
 			@NotNull @Size(max = 200) String description) {
 		//super();
 		this.id = id;
-		this.imgName = imgName;
-		this.type = type;
-		this.data = data;
 		this.location = location;
 		this.roomSize = roomSize;
 		this.price = price;
@@ -79,37 +84,27 @@ public class Houses {
 //		public void sethPhoto(String hPhoto) {
 //			this.hPhoto = hPhoto;
 //		}
-
-
-		 public String getImgName() {
-				return imgName;
+			public String getCategory() {
+				return category;
 			}
 
-			public void setImgName(String imgName) {
-				this.imgName = imgName;
+			public void setCategory(String category) {
+				this.category = category;
+			}
+			public String getRoomSize() {
+				return roomSize;
 			}
 
-//			public String getImgUrl() {
-//				return imgUrl;
-//			}
-//
-//			public void setImgUrl(String imgUrl) {
-//				this.imgUrl = imgUrl;
-//			}
-			public String getType() {
-				return type;
+			public void setRoomSize(String roomSize) {
+				this.roomSize = roomSize;
 			}
 
-			public void setType(String type) {
-				this.type = type;
+			public String getPrice() {
+				return price;
 			}
 
-			public byte[] getData() {
-				return data;
-			}
-
-			public void setData(byte[] data) {
-				this.data = data;
+			public void setPrice(String price) {
+				this.price = price;
 			}
 
 		public String getLocation() {
@@ -120,30 +115,7 @@ public class Houses {
 			this.location = location;
 		}
 
-		public String getRoomSize() {
-			return roomSize;
-		}
-
-		public void setRoomSize(String roomSize) {
-			this.roomSize = roomSize;
-		}
-
-		public String getPrice() {
-			return price;
-		}
-
-		public void setPrice(String price) {
-			this.price = price;
-		}
-
-		public String getCategory() {
-			return category;
-		}
-
-		public void setCategory(String category) {
-			this.category = category;
-		}
-
+		
 		public String getDescription() {
 			return description;
 		}
