@@ -36,6 +36,7 @@ import com.renta.app.payload.response.HouseResponseFile;
 import com.renta.app.payload.response.MessageResponse;
 import com.renta.app.repository.HouseRepository;
 import com.renta.app.service.HouseFilesStorageService;
+import com.renta.app.service.HouseService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -44,26 +45,28 @@ public class HouseController {
 	
 		@Autowired
         HouseRepository houseRepository;
+		@Autowired 
+		HouseFilesStorageService storageService;
+		
+		
+		@Autowired
+	    HouseService houseService;
 		
 		@PostMapping("/houses/create")
-		  public ResponseEntity<MessageResponse> createHose(Houses houses) throws IOException {
-		    String message = "";
-		    
-		      houseRepository.save(houses);
-		    message = "Uploaded the file successfully: ";
-		      return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message, "1"));
-		    
-//		    try {
-//		    	//houseRepository.save(houses);
-//		    	fileStorage.store(houses, file);
-//
-//		      message = "Uploaded the file successfully: " + file.getOriginalFilename();
-//		      return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
-//		    } catch (Exception e) {
-//		      message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-//		      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
-//		    }
-		  }
+		public ResponseEntity<MessageResponse> saveHouse(Houses houses, @RequestParam("file") MultipartFile file){
+			String message = "";
+			try {
+				storageService.store(file);
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+			houseService.saveHouse(houses);
+			message = "created successfully: ";
+	       return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message, "1"));
+		
+			
+		}
 		
 	
 //		
@@ -71,13 +74,6 @@ public class HouseController {
 		 * 
 		 * @return all the houses
 		 */
-//		@GetMapping("/houses")
-//		  public ResponseEntity<List<HouseResponseFile>> getListHouses() {
-//		  
-//		          
-//
-//		    return ResponseEntity.status(HttpStatus.OK).body(null);
-//		  }
 		
 		@GetMapping("/houses")
 		public List<Houses> allHouses() {

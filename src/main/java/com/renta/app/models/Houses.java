@@ -5,6 +5,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,30 +47,37 @@ public class Houses {
 	  @Size(max = 200)
 	  private String description;
 	  
-//	  @NotNull
-//	  private String hPhoto;
+	  @ManyToMany(mappedBy = "houses", cascade = CascadeType.ALL)
+	    private Collection<houseImage> houseimage = new ArrayList<>();
+
 	  
-	  
-	  @ManyToMany(fetch = FetchType.LAZY)
-		@JoinTable(	name = "house_images", 
-					joinColumns = @JoinColumn(name = "house_id"), 
-					inverseJoinColumns = @JoinColumn(name = "file_id"))
-	  
-	  private Set<houseImage> houseimages = new HashSet<>();
+
+	
+	public Collection<houseImage> getHouseimage() {
+		return houseimage;
+	}
+
+
+	public void setHouseimage(Collection<houseImage> houseimage) {
+		this.houseimage = houseimage;
+	}
+
 
 	public  Houses() {
 	  }
-	public Houses( String id , @NotNull @Size(max = 20) String location,
-			String roomSize, @NotNull @Size(max = 20) String price, @NotNull @Size(max = 30) String category,
-			@NotNull @Size(max = 200) String description) {
-		//super();
-		this.id = id;
-		this.location = location;
-		this.roomSize = roomSize;
-		this.price = price;
-		this.category = category;
-		this.description = description;
-	}
+	
+	
+//	public Houses( String id , @NotNull @Size(max = 20) String location,
+//			String roomSize, @NotNull @Size(max = 20) String price, @NotNull @Size(max = 30) String category,
+//			@NotNull @Size(max = 200) String description) {
+//		//super();
+//		this.id = id;
+//		this.location = location;
+//		this.roomSize = roomSize;
+//		this.price = price;
+//		this.category = category;
+//		this.description = description;
+//	}
 	  
 	public String getId() {
 		return id;
