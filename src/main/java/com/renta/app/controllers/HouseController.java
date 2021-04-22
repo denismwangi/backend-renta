@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import com.renta.app.exception.ResourceNotFoundException;
 import com.renta.app.models.Houses;
 import com.renta.app.models.User;
@@ -67,9 +65,7 @@ public class HouseController {
 		
 			
 		}
-		
-	
-//		
+			
 		/**
 		 * 
 		 * @return all the houses
@@ -119,9 +115,7 @@ public class HouseController {
 			Houses updateHouse = houseRepository.save(houses);
 			return ResponseEntity.ok(updateHouse);
 		}
-		
-		
-		
+	
 		/**
 		 * 
 		 * @param id
@@ -143,23 +137,4 @@ public class HouseController {
 		}
 		
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
