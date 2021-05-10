@@ -5,10 +5,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -16,11 +13,14 @@ import javax.persistence.*;
 @Table(name = "houses")
 public class Houses {
 	
-	 @Id
-	  @GeneratedValue(generator = "uuid")
-	  @GenericGenerator(name = "uuid", strategy = "uuid2")
-	 @Column(length = 36, nullable = false, updatable = false)
-	  private String id;
+//	 @Id
+//	  @GeneratedValue(generator = "uuid")
+//	  @GenericGenerator(name = "uuid", strategy = "uuid2")
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name = "houseId")
+private Long id;
+
 
 	  
 	  @NotNull
@@ -46,13 +46,29 @@ public class Houses {
 	  @NotNull
 	  @Size(max = 200)
 	  private String description;
-	  
-	  @ManyToMany(mappedBy = "houses", cascade = CascadeType.ALL)
+
+
+
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cc_fk",referencedColumnName = "houseId")
+	private List<User> owner;
+
+	public void setOwner(List<User> owner) {
+		this.owner = owner;
+	}
+
+	public List<User> getOwner() {
+		return owner;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cc_fk",referencedColumnName = "houseId")
 	    private Collection<houseImage> houseimage = new ArrayList<>();
 
-	  
 
-	
+
+
 	public Collection<houseImage> getHouseimage() {
 		return houseimage;
 	}
@@ -79,10 +95,10 @@ public class Houses {
 //		this.description = description;
 //	}
 	  
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

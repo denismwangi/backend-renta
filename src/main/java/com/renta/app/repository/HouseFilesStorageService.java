@@ -1,4 +1,4 @@
-package com.renta.app.service;
+package com.renta.app.repository;
 
 
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class HouseFilesStorageService {
 	    return filesRepository.save(houseimg);
 	  }
 
-	  public houseImage getFile(String id) {
+	  public houseImage getFile(Long id) {
 	    return filesRepository.findById(id).get();
 	  }
 	  

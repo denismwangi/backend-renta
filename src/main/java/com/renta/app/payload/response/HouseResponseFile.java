@@ -4,27 +4,25 @@ public class HouseResponseFile {
 
 	
 		
-	      private String id;
-		
-
+	      private Long id;
 		private String name;
 		  private String url;
 		  private String type;
 		  private long size;
 
-		  public HouseResponseFile(String id, String name ,
-				  String url, String type, long size) {
+		  public HouseResponseFile(Long id, String category, String roomSize, String price, String location, String description, String name,
+                                   String url, String type, long size) {
 			  this.id = id;
 		    this.name = name;
 		    this.url = url;
 		    this.type = type;
 		    this.size = size;
 		  }
-		  public String getId() {
+		  public Long getId() {
 				return id;
 			}
 
-			public void setId(String id) {
+			public void setId(Long id) {
 				this.id = id;
 			}
 		  public String getName() {
@@ -58,6 +56,6 @@ public class HouseResponseFile {
 		  public void setSize(long size) {
 		    this.size = size;
 		  }
-		  
+
 
 }

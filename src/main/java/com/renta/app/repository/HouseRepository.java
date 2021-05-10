@@ -8,7 +8,7 @@ import com.renta.app.models.Houses;
 
 
 @Repository
-public interface HouseRepository extends JpaRepository<Houses, String> {
+public interface HouseRepository extends JpaRepository<Houses, Long> {
 
 
 

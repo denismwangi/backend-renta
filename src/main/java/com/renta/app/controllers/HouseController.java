@@ -1,16 +1,11 @@
 package com.renta.app.controllers;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,34 +17,25 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.renta.app.exception.ResourceNotFoundException;
 import com.renta.app.models.Houses;
-import com.renta.app.models.User;
-import com.renta.app.payload.response.HouseResponseFile;
 import com.renta.app.payload.response.MessageResponse;
 import com.renta.app.repository.HouseRepository;
-import com.renta.app.service.HouseFilesStorageService;
-import com.renta.app.service.HouseService;
+import com.renta.app.repository.HouseFilesStorageService;
+//import com.renta.app.service.HouseService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1")
 public class HouseController {
-	
 		@Autowired
         HouseRepository houseRepository;
 		@Autowired 
 		HouseFilesStorageService storageService;
-		
-		
-		@Autowired
-	    HouseService houseService;
-		
+//		@Autowired
+//	    HouseService houseService;
 		@PostMapping("/houses/create")
 		public ResponseEntity<MessageResponse> saveHouse(Houses houses, @RequestParam("file") MultipartFile file){
 			String message = "";
@@ -59,13 +45,10 @@ public class HouseController {
 				
 				e.printStackTrace();
 			}
-			houseService.saveHouse(houses);
+			houseRepository.save(houses);
 			message = "created successfully: ";
 	       return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message, "1"));
-		
-			
 		}
-			
 		/**
 		 * 
 		 * @return all the houses
@@ -84,7 +67,7 @@ public class HouseController {
 		 */
 		
 		@GetMapping("/houses/{id}")
-		public ResponseEntity<Houses> getHouse(@PathVariable String id){
+		public ResponseEntity<Houses> getHouse(@PathVariable Long id){
 			 
 			Houses houses = houseRepository.findById(id).
 					orElseThrow(() -> new ResourceNotFoundException("house not exist with id :" + id));
@@ -101,7 +84,7 @@ public class HouseController {
 		 */
 		
 		@PutMapping("/houses/{id}")
-		public ResponseEntity<Houses> updateHouse(@PathVariable String id , @RequestBody Houses houseDetails){
+		public ResponseEntity<Houses> updateHouse(@PathVariable Long id , @RequestBody Houses houseDetails){
 			Houses houses = houseRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("houses does ot exist with id:" + id));
 			
@@ -123,7 +106,7 @@ public class HouseController {
 		 */
 		
 		@DeleteMapping("/houses/{id}")
-		public ResponseEntity<Map<String , Boolean>> deleteHouse(@PathVariable String id){
+		public ResponseEntity<Map<String , Boolean>> deleteHouse(@PathVariable Long id){
 			Houses houses = houseRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("house does not exist with id: " +1d));
 			houseRepository.delete(houses);

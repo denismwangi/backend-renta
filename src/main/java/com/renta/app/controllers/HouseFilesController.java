@@ -1,20 +1,13 @@
 package com.renta.app.controllers;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.renta.app.models.houseImage;
 import com.renta.app.payload.response.HouseResponseFile;
 import com.renta.app.payload.response.MessageResponse;
 
-import com.renta.app.service.HouseFilesStorageService;
+import com.renta.app.repository.HouseFilesStorageService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -57,29 +49,28 @@ public class HouseFilesController {
 	    }
 	  }
 
-	  @GetMapping("/files")
-	  public ResponseEntity<List<HouseResponseFile>> getListFiles() {
-	    List<HouseResponseFile> files = storageService.getAllFiles().map(dbFile -> {
-	    	
-	      String fileDownloadUri = ServletUriComponentsBuilder
-	          .fromCurrentContextPath()
-	          .path("/api/v1/files/")
-	          .path(dbFile.getId())
-	          .toUriString();
-
-	      return new HouseResponseFile(
-	    	  dbFile.getId(),
-	          dbFile.getName(),
-	          fileDownloadUri,
-	          dbFile.getType(),
-	          dbFile.getData().length);
-	    }).collect(Collectors.toList());
-
-	    return ResponseEntity.status(HttpStatus.OK).body(files);
-	  }
+//	  @GetMapping("/files")
+//	  public ResponseEntity<List<HouseResponseFile>> getListFiles() {
+//	    List<HouseResponseFile> files = storageService.getAllFiles().map(dbFile -> {
+//
+//	      String fileDownloadUri = ServletUriComponentsBuilder
+//	          .fromCurrentContextPath()
+//	          .path("/api/v1/files/")
+//	          .path(String.valueOf(dbFile.getId()))
+//	          .toUriString();
+//
+//	      return new HouseResponseFile(
+//	    	  dbFile.getId(),
+//	          fileDownloadUri,
+//	          dbFile.getType(),
+//	          dbFile.getData().length);
+//	    }).collect(Collectors.toList());
+//
+//	    return ResponseEntity.status(HttpStatus.OK).body(files);
+//	  }
 
 	  @GetMapping("/files/{id}")
-	  public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+	  public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
 	    houseImage houseimg = storageService.getFile(id);
 
 	    return ResponseEntity.ok()
