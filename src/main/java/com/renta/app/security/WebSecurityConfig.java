@@ -80,23 +80,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		String[] staticResources  =  {
+				"/**",
+				"/images/**",
+				"/images/**",
+				"/fonts/**",
+				"/scripts/**",
+
+		};
 		http.cors().and().csrf().disable()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests().antMatchers("/api/v1/auth/**").permitAll()
+			.authorizeRequests()
+				.antMatchers(staticResources).permitAll()
+				.antMatchers("/api/v1/auth/**").permitAll()
 			.antMatchers("/api/test/**").permitAll()
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-		
+
 		http.cors().configurationSource(new CorsConfigurationSource() {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 return new CorsConfiguration().applyPermitDefaultValues();
             }
-
-			
         });
 	}
 	
@@ -107,12 +115,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	    		"/api/v1/users/**",
 	    		"/files/images/**",
 	    		"/api/v1/roles/**",
-	    		"/api/v1/files/**",
-	    		"/files/**",
-				"/api/v1/prop/**"
+	    		"/api/v1/files/**"
 	    		);
 	  
 	}
+
 	
 	
 }

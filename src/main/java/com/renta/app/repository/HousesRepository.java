@@ -2,7 +2,6 @@ package com.renta.app.repository;
 
 
 import com.renta.app.models.House;
-import com.renta.app.models.houseImage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
