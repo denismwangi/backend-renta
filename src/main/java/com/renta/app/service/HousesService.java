@@ -39,7 +39,7 @@ public class HousesService {
 
             // Then create the corresponding entity class, add the following path, and then write through the database operation method
             House biaopath = new House();
-            String imagePath = biaopath.setPath("https://rentaapi.herokuapp.com/images/" + fileName);
+            String imagePath = biaopath.setPath("/images/" + fileName);
             House property = new House(house.getCategory(), house.getRoomSize(), house.getPrice(), house.getLocation(), house.getDescription(),imagePath);
 
 
