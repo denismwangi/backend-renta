@@ -35,8 +35,6 @@ public class House {
 //  public House(){
 //
 //  }
-
-
     public House( String category, String roomSize, String price, String location, String description, String imgpath) {
         this.category = category;
         this.roomSize = roomSize;
