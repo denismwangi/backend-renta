@@ -12,7 +12,7 @@
 	<artifactId>spring-boot-security-postgresql</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>renta-backend</name>
-	<description>Spring Boot, Spring Security, PostgreSQL: JWT Authentication &amp; Authorization example</description>
+	<description>Spring Boot App</description>
 
 	<properties>
 	 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -78,6 +78,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>spring-boot-security-postgresql</finalName>
 	</build>
 
 </project>

@@ -15,17 +15,17 @@ import com.renta.app.models.User;
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
-    private String firstname;
-    private String lastname;
-    private String username;
-	private String email;
-	private String contacts;
+	private final Long id;
+    private final String firstname;
+    private final String lastname;
+    private final String username;
+	private final String email;
+	private final String contacts;
 
 	@JsonIgnore
-	private String password;
+	private final String password;
 
-	private Collection<? extends GrantedAuthority> authorities;
+	private final Collection<? extends GrantedAuthority> authorities;
 
 	public UserDetailsImpl(Long id, String firstname, String lastname, String contacts, String username, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
