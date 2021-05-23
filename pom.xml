@@ -78,7 +78,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>spring-boot-security-postgresql</finalName>
+<!--		<finalName>spring-boot-security-postgresql</finalName>-->
 	</build>
 
 </project>

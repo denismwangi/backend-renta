@@ -76,7 +76,7 @@ public class AuthController {
 												 userDetails.getFirstname(),
 												 userDetails.getLastname(),
 												 userDetails.getEmail(), 
-												 userDetails.getContacts(),
+												 userDetails.getPhone(),
 												 roles));
 	}
 
@@ -102,7 +102,7 @@ public class AuthController {
 				             signUpRequest.getLastname(),
 				             signUpRequest.getUsername(), 
 							 signUpRequest.getEmail(),
-							 signUpRequest.getContacts(),
+							 signUpRequest.getPhone(),
 							 encoder.encode(signUpRequest.getPassword()));
 
 		Set<String> strRoles = signUpRequest.getRole();

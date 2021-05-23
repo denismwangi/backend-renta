@@ -21,23 +21,20 @@ public class SignupRequest {
     @Size(max = 50)
     @Email
     private String email;
+
+
+
+    //
+    @NotBlank
+    @Size(min = 6, max = 40)
+    private String phone;
     
     private Set<String> role;
     
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
-    
-    @NotBlank
-    @Size(min = 6, max = 40)
-    private String contacts;
-    
-    
-    
 
-	public void setContacts(String contacts) {
-		this.contacts = contacts;
-	}
 
 	public String getFirstname() {
         return firstname;
@@ -70,7 +67,13 @@ public class SignupRequest {
     public void setEmail(String email) {
         this.email = email;
     }
- 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
     public String getPassword() {
         return password;
     }
@@ -87,8 +90,5 @@ public class SignupRequest {
       this.role = role;
     }
 
-	public String getContacts() {
-		// TODO Auto-generated method stub
-		return contacts;
-	}
+
 }

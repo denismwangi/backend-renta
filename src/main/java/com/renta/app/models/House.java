@@ -3,6 +3,7 @@ package com.renta.app.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "house")
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 public class House {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "houseId")
         private Long id;
 
 
@@ -31,6 +33,12 @@ public class House {
         @Size(max = 200)
         private String description;
         private String imgpath;
+
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "owner_fk",referencedColumnName = "houseId")
+    private List<User> owner;
 
 //  public House(){
 //
@@ -104,6 +112,13 @@ public class House {
     public String setPath(String imgpath) {
         this.imgpath = imgpath;
         return imgpath;
+    }
+    public List<User> getOwner() {
+        return owner;
+    }
+
+    public void setOwner(List<User> owner) {
+        this.owner = owner;
     }
 
 
