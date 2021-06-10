@@ -2,6 +2,7 @@ package com.renta.app.models;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name  = "userId")
 	private Long id;
 
 	@NotBlank
@@ -55,6 +57,12 @@ public class User {
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+
+
+
+	@OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId",referencedColumnName = "userId")
+    private List<House> house;
 
 
 	public User() {
@@ -138,6 +146,13 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	public List<House> getHouse() {
+		return house;
+	}
+
+	public void setHouse(List<House> house) {
+		this.house = house;
 	}
 
 }

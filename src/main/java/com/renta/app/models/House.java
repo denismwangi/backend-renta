@@ -3,7 +3,9 @@ package com.renta.app.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "house")
@@ -35,21 +37,29 @@ public class House {
         private String imgpath;
 
 
+    private Long userId;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "owner_fk",referencedColumnName = "houseId")
-    private List<User> owner;
+
+
+
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(	name = "house_owners",
+//            joinColumns = @JoinColumn(name = "house_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id"))
+//    private Set<User> owner = new HashSet<>();
 
 //  public House(){
 //
 //  }
-    public House( String category, String roomSize, String price, String location, String description, String imgpath) {
+    public House(Long id, String category, String roomSize, String price, String location, String description, String imgpath, Long userId) {
+        this.id = id;
         this.category = category;
         this.roomSize = roomSize;
         this.price = price;
         this.location = location;
         this.description = description;
         this.imgpath = imgpath;
+        this.userId = userId;
     }
 
     public House() {
@@ -113,13 +123,20 @@ public class House {
         this.imgpath = imgpath;
         return imgpath;
     }
-    public List<User> getOwner() {
-        return owner;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setOwner(List<User> owner) {
-        this.owner = owner;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
+
+//    public void setOwner(Set<User> owner) {
+//        this.owner = owner;
+//    }
+//    public Set<User> getOwner() {
+//        return owner;
+//    }
 
 
 }

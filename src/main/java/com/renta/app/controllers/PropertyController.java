@@ -3,7 +3,9 @@ package com.renta.app.controllers;
 
 import com.renta.app.exception.ResourceNotFoundException;
 import com.renta.app.models.House;
+import com.renta.app.models.User;
 import com.renta.app.repository.HousesRepository;
+import com.renta.app.security.services.UserDetailsImpl;
 import com.renta.app.service.HousesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +37,12 @@ public class PropertyController {
     @RequestMapping("/houses/create")
     @ResponseBody
     public String upload(House house, @RequestParam("file") MultipartFile file) {
+
+
         return housesService.saveHouse(house,file);
 
     }
+
 
     /**
      *
@@ -62,6 +67,8 @@ public class PropertyController {
         return ResponseEntity.ok(houses);
 
     }
+
+
     /**
      *
      * @param id
