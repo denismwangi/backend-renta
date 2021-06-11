@@ -17,4 +17,9 @@
 |POST|/api/v1/houses/create||
 |GET|/api/v1/houses||
 |GET|/api/v1/houses/{id}||
+|GET|/api/v1/houses?location={location}||
+|GET|/api/v1/houses/category?category={category_name}||
+|GET|/api/v1/houses?page={pagenumber}||
+|GET|/api/v1/houses?page=0&sortBy={id or category or location}||
+
 
