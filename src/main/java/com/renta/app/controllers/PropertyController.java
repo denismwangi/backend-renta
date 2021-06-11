@@ -7,7 +7,12 @@ import com.renta.app.models.User;
 import com.renta.app.repository.HousesRepository;
 import com.renta.app.security.services.UserDetailsImpl;
 import com.renta.app.service.HousesService;
+import com.sun.istack.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,9 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
 public class PropertyController {
@@ -25,7 +31,7 @@ public class PropertyController {
     @Autowired
     private HousesService housesService;
     @Autowired
-    private HousesRepository housesRepository;
+    HousesRepository housesRepository;
 
     /**
      *
@@ -50,10 +56,23 @@ public class PropertyController {
      */
 
     @GetMapping("/houses")
-    public List<House> getAll(){
-        return housesRepository.findAll();
+    public Page<House> findAll(@RequestParam Optional<String> location,
+                               @RequestParam Optional<Integer> page,
+                               @RequestParam Optional<String> sortBy){
+
+        return housesRepository.findByLocation(location.orElse("_"), PageRequest.of(page.orElse(0), 5,
+                Sort.Direction.ASC, sortBy.orElse("id")));
+    }
+    @GetMapping("/houses/category")
+    public Page<House> findCategory(@RequestParam Optional<String> category,
+                               @RequestParam Optional<Integer> page,
+                               @RequestParam Optional<String> sortBy){
+
+        return housesRepository.findByCategory(category.orElse("_"), PageRequest.of(page.orElse(0), 5,
+                Sort.Direction.ASC, sortBy.orElse("id")));
     }
     /**
+     *
      *
      * @param id
      * @return

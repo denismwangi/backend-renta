@@ -3,6 +3,8 @@ package com.renta.app.repository;
 
 import com.renta.app.models.House;
 import com.renta.app.models.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,15 +14,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.hibernate.FetchMode.JOIN;
-import static org.hibernate.FetchMode.SELECT;
-import static org.hibernate.hql.internal.antlr.SqlTokenTypes.FROM;
 
 
 
+@SuppressWarnings("JpaQlInspection")
 @Repository
-@Transactional(readOnly = true)
 public interface HousesRepository extends JpaRepository<House, Long> {
+
+
+    @Query(value = "select s from House s where location like %?1%")
+    Page<House> findByLocation(String location, Pageable pageable);
+
+    @Query(value = "select s from House s where category like %?1%")
+    Page<House> findByCategory(String category, Pageable pageable);
 
 
 
